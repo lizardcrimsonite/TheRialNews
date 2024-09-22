@@ -1,2 +1,20 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<h2>Comments</h2>
+<% @comments.each do |comment| %>
+  <p><%= comment.content %> - <%= comment.user.email %></p>
+  <% if current_user && current_user.admin? %>
+    <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? %>
+  <h3>Add a comment</h3>
+  <%= form_with model: [ @post, @post.comments.build ] do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit 'Add Comment' %>
+  <% end %>
+<% else %>
+  <p>Please sign in to add a comment.</p>
+<% end %>
