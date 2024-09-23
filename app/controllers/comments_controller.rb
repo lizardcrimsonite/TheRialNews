@@ -9,15 +9,21 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post), notice: 'Comment was successfully added.'
     else
-      redirect_to post_path(@post), alert: 'Unable to add comment.'
+      flash.now[:alert] = 'Unable to add comment.'
+      render 'posts/show' # o la vista que desees mostrar
     end
   end
 
   def destroy
     @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to post_path(@comment.post), notice: 'Comment was successfully deleted.'
+    if @comment.user == current_user || current_user.admin?
+      @comment.destroy
+      redirect_to post_path(@comment.post), notice: 'Comment was successfully deleted.'
+    else
+      redirect_to post_path(@comment.post), alert: 'You are not authorized to delete this comment.'
+    end
   end
+  
 
   private
 

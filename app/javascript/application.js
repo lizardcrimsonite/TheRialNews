@@ -1,3 +1,6 @@
-// Entry point for the build script in your package.json
-import "@hotwired/turbo-rails"
-import "./controllers"
+// app/javascript/packs/application.js
+
+import Rails from "@rails/ujs";
+Rails.start();
+import "@hotwired/turbo-rails";
+import "./controllers"; // Asegúrate de que esto está correctamente configurado

@@ -68,7 +68,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'rspec-rails', '~> 7.0', '>= 7.0.1'
 
 end
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'figaro', '~> 1.2'
+gem 'webpacker', '~> 5.4', '>= 5.4.4'

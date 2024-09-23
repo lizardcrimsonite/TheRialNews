@@ -9,11 +9,12 @@ class User < ApplicationRecord
   # Roles disponibles
   ROLES = %w[admin regular].freeze
 
-  # Validación para que el rol esté dentro de los permitidos
+  # Validaciones
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
   validates :role, inclusion: { in: ROLES }
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # Include default devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
